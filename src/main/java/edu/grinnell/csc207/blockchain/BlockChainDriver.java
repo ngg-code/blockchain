@@ -1,4 +1,6 @@
 package edu.grinnell.csc207.blockchain;
+import java.util.Scanner;
+
 
 /**
  * The main driver for the block chain program.
@@ -12,8 +14,8 @@ public class BlockChainDriver {
      */
     public static void main(String[] args) {
         BlockChain chain = new BlockChain(args[0]);
-        system.out.println("Comand?");
-        Scanner scanner = new Scanner(system.in);
+        System.out.println("Comand?");
+        Scanner scanner = new Scanner(System.in);
         String command = scanner.nextLine();
         while (!command.equals("quit")) {
             if (command.equals("Help")) {
@@ -42,8 +44,8 @@ public class BlockChainDriver {
                 chain.isValidBlockChain();
             }
             if (command.equals("report")) {
-                System.out.println(
-                        "Alice: " + chain.getBalance() + "Bob: " + first.Block.getAmount() - chain.getBalance());
+                Node firstNode = chain.first;
+                System.out.println("Alice: " + chain.getBalance() + "Bob: " + chain.first.Block.getAmount() - chain.getBalance());
             }
             if (command.equals("quit")) {
                 break;

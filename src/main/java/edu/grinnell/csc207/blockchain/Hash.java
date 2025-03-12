@@ -8,18 +8,18 @@ import java.security.NoSuchAlgorithmException;
  */
 public class Hash {
 
-    public byte[] Hash;
+    public byte[] hash;
 
     public Hash(byte[] hash) {
-        this.Hash = hash;
+        this.hash = hash;
     }
 
     public byte[] getData() {
-        return this.Hash;
+        return this.hash;
     }
 
     public boolean isValid() {
-        return this.hash.substring(0, 3).equals("000");
+        return this.hash.toString.substring(0, 3).equals("000");
     }
 
     public static byte[] calculateHash(String msg) throws NoSuchAlgorithmException {
@@ -29,7 +29,7 @@ public class Hash {
         return hash; // Remaining implementation below...
     }
 
-    public string toString() {
+    public String toString() {
         StringBuilder hexString = new StringBuilder();
         for (int i = 0; i < this.Hash.length; i++) {
             hexString.append(String.format("%02x", Byte.toUnsignedInt(this.Hash[i])));

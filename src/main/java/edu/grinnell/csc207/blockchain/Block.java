@@ -5,8 +5,8 @@ package edu.grinnell.csc207.blockchain;
  */
 public class Block {
     private int num;
-    private String Amount;
-    private Hash Hash;
+    private int Amount;
+    private Hash hash;
     private Hash PrevHash;
     private long nonce;
 
@@ -14,8 +14,7 @@ public class Block {
         this.num = num;
         this.Amount = Amount;
         this.PrevHash = PrevHash;
-        this.Hash = Hash.calculateHash("" + num + value + PrevHash.toString + "");
-        mineBlock();
+        this.hash = Hash.calculateHash(num + "" + Amount + PrevHash);
     }
 
     public Block(int Amount, int num, Hash PrevHash, long nonce) {
@@ -23,7 +22,7 @@ public class Block {
         this.num = num;
         this.PrevHash = PrevHash;
         this.nonce = nonce;
-        this.Hash = Hash.calculateHash("" + num + Amount + PrevHash.toString + nonce + "");
+        this.hash = Hash.calculateHash("" + num + Amount + PrevHash + nonce + "");
     }
 
     public int getAmount() {
@@ -39,7 +38,7 @@ public class Block {
     }
 
     public Hash getHash() {
-        return this.Hash;
+        return this.hash;
     }
 
     public Hash getPrevHash() {
@@ -50,12 +49,13 @@ public class Block {
         return "Block " + num + " (Amount: " + Amount + ", Nonce: " + nonce + ", prevHash: " + prevHash + ", hash: "
                 + Hash + ")";
     }
+    
 
     public void mineBlock(int amount) {
         num++;
         while (!Hash.isValid()) {
             nonce++;
-            Hash hash = calculateHash("" + num + amount + PrevHash + nonce + "");
+            byte[] hash = calculateHash("" + num + amount + PrevHash + nonce + "");
         }
         System.out.println("Amount: " + amount + "nonce:" + nonce);
     }

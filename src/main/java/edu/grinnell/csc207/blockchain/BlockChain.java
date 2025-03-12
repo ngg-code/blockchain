@@ -68,7 +68,7 @@ public class BlockChain {
         return true;
     }
 
-    public String getHash() {
+    public Hash getHash() {
         return last.block.getHash();
     }
 
@@ -85,6 +85,10 @@ public class BlockChain {
 
     public void printBalances() {
         System.out.println("Balances: " + this.Balance);
+    }
+
+    public int getBalance(){
+        return this.Balance;
     }
 
     public String toString() {
