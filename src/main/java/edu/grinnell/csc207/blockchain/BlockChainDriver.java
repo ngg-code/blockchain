@@ -1,6 +1,8 @@
 package edu.grinnell.csc207.blockchain;
 import java.util.Scanner;
 
+import org.w3c.dom.Node;
+
 
 /**
  * The main driver for the block chain program.
@@ -13,7 +15,7 @@ public class BlockChainDriver {
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
-        BlockChain chain = new BlockChain(args[0]);
+        BlockChain chain = new BlockChain(Integer.parseInt(args[0]));
         System.out.println("Comand?");
         Scanner scanner = new Scanner(System.in);
         String command = scanner.nextLine();

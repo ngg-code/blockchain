@@ -46,16 +46,16 @@ public class Block {
     }
 
     public String toString() {
-        return "Block " + num + " (Amount: " + Amount + ", Nonce: " + nonce + ", prevHash: " + prevHash + ", hash: "
-                + Hash + ")";
+        return "Block " + num + " (Amount: " + Amount + ", Nonce: " + nonce + ", prevHash: " + PrevHash + ", hash: "
+                + hash + ")";
     }
     
 
     public void mineBlock(int amount) {
         num++;
-        while (!Hash.isValid()) {
+        while (!hash.isValid()) {
             nonce++;
-            byte[] hash = calculateHash("" + num + amount + PrevHash + nonce + "");
+            byte[] hash = Hash.calculateHash("" + num + amount + PrevHash + nonce + "");
         }
         System.out.println("Amount: " + amount + "nonce:" + nonce);
     }
