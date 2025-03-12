@@ -46,10 +46,10 @@ public class BlockChainDriver {
                 chain.isValidBlockChain();
             }
             if (command.equals("report")) {
-                Node firstNode = chain.first;
-                System.out.println("Alice: " + chain.getBalance() + "Bob: " + chain.first.Block.getAmount() - chain.getBalance());
+                System.out.println("Alice: " + chain.getBalance() + "Bob: " + (chain.getInitial() - chain.getBalance()));
             }
             if (command.equals("quit")) {
+                scanner.close();
                 break;
             }
         }

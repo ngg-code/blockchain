@@ -20,6 +20,7 @@ public class BlockChain {
     private Node last;
     private int size;
     private int Balance;
+    private int initial;
 
     public BlockChain(int initial) {
         Block firstBlock = new Block(initial, 0, null);
@@ -27,6 +28,7 @@ public class BlockChain {
         this.last = first;
         this.size = 1;
         this.Balance = initial;
+        this.initial = initial;
     }
 
     public Block mine(int amount) {
@@ -89,6 +91,10 @@ public class BlockChain {
 
     public int getBalance(){
         return this.Balance;
+    }
+
+    public int getInitial(){
+        return this.initial;
     }
 
     public String toString() {

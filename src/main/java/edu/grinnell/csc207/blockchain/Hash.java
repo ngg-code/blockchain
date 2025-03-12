@@ -19,7 +19,7 @@ public class Hash {
     }
 
     public boolean isValid() {
-        return this.hash.toString.substring(0, 3).equals("000");
+        return this.hash.toString().substring(0, 3).equals("000");
     }
 
     public static byte[] calculateHash(String msg) throws NoSuchAlgorithmException {
@@ -31,8 +31,8 @@ public class Hash {
 
     public String toString() {
         StringBuilder hexString = new StringBuilder();
-        for (int i = 0; i < this.Hash.length; i++) {
-            hexString.append(String.format("%02x", Byte.toUnsignedInt(this.Hash[i])));
+        for (int i = 0; i < this.hash.length; i++) {
+            hexString.append(String.format("%02x", Byte.toUnsignedInt(this.hash[i])));
         }
         return hexString.toString();
     }
