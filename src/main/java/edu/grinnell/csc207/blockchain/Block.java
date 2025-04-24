@@ -7,41 +7,41 @@ import java.security.NoSuchAlgorithmException;
  */
 public class Block {
     private int num;
-    private int Amount;
+    private int amount;
     private Hash hash;
-    private Hash PrevHash;
+    private Hash prevHash;
     private long nonce;
 
     /**
      * Constructor for the Block class.
      *
-     * @param Amount   The amount of the transaction.
+     * @param amount   The amount of the transaction.
      * @param num      The block number.
-     * @param PrevHash The hash of the previous block.
+     * @param prevHash The hash of the previous block.
      * @throws NoSuchAlgorithmException If the hashing algorithm is not found.
      */
-    public Block(int Amount, int num, Hash PrevHash) throws NoSuchAlgorithmException {
+    public Block(int amount, int num, Hash prevHash) throws NoSuchAlgorithmException {
         this.num = num;
-        this.Amount = Amount;
-        this.PrevHash = PrevHash;
-        this.hash = new Hash(Hash.calculateHash("" + num + Amount + PrevHash + ""));
+        this.amount = amount;
+        this.prevHash = prevHash;
+        this.hash = new Hash(Hash.calculateHash("" + num + amount + prevHash + ""));
     }
 
     /**
      * Constructor for the Block class with nonce.
      *
-     * @param Amount   The amount of the transaction.
+     * @param amount   The amount of the transaction.
      * @param num      The block number.
-     * @param PrevHash The hash of the previous block.
+     * @param prevHash The hash of the previous block.
      * @param nonce    The nonce value for mining.
      * @throws NoSuchAlgorithmException If the hashing algorithm is not found.
      */
-    public Block(int Amount, int num, Hash PrevHash, long nonce) throws NoSuchAlgorithmException {
-        this.Amount = Amount;
+    public Block(int amount, int num, Hash prevHash, long nonce) throws NoSuchAlgorithmException {
+        this.amount = amount;
         this.num = num;
-        this.PrevHash = PrevHash;
+        this.prevHash = prevHash;
         this.nonce = nonce;
-        this.hash = new Hash(Hash.calculateHash("" + num + Amount + PrevHash + nonce + ""));
+        this.hash = new Hash(Hash.calculateHash("" + num + amount + prevHash + nonce + ""));
     }
 
     /**
@@ -50,7 +50,7 @@ public class Block {
      * @return the transaction amount contained in this block
      */
     public int getAmount() {
-        return this.Amount;
+        return this.amount;
     }
 
     /**
@@ -86,7 +86,7 @@ public class Block {
      * @return the hash of the previous block
      */
     public Hash getPrevHash() {
-        return this.PrevHash;
+        return this.prevHash;
     }
 
     /**
@@ -95,8 +95,11 @@ public class Block {
      * @return a string representation of the block
      */
     public String toString() {
-        return "Block " + num + " (Amount: " + Amount + ", Nonce: " + nonce + ", prevHash: " + PrevHash + ", hash: "
-                + hash + ")";
+        return "Block " + num +
+                "(amount: " + amount +
+                ", Nonce: " + nonce +
+                ", prevHash: " + prevHash +
+                ", hash: " + hash + ")";
     }
 
     /**
@@ -109,8 +112,8 @@ public class Block {
         num++;
         while (!hash.isValid()) {
             nonce++;
-            hash.hash = Hash.calculateHash("" + num + amount + PrevHash + nonce + "");
+            hash.hash = Hash.calculateHash("" + num + amount + prevHash + nonce + "");
         }
-        System.out.println("Amount: " + amount + "nonce:" + nonce);
+        System.out.println("amount: " + amount + "nonce:" + nonce);
     }
 }
