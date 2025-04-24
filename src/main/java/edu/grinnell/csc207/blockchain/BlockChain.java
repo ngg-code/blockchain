@@ -115,10 +115,20 @@ public class BlockChain {
      * 
      * @return true if the blockchain is valid, false otherwise.
      */
-    public boolean isValidBlockChain() {
+    public boolean isValidBlockChain() throws NoSuchAlgorithmException {
         Node current = first;
-        while (current.next != null) {
-            if (!current.next.block.getPrevHash().equals(current.block.getHash())) {
+
+        while (current != null) {
+            Block block = current.block;
+            String blockData = "" + block.getNum() + block.getAmount() + block.getPrevHash() + block.getNonce();
+            Hash expectedHash = new Hash(Hash.calculateHash(blockData));
+            if (!block.getHash().toString().equals(expectedHash.toString())) {
+                return false;
+            }
+            if (!block.getHash().isValid()) {
+                return false;
+            }
+            if (current != first && !block.getPrevHash().toString().equals(current.block.getPrevHash().toString())) {
                 return false;
             }
             current = current.next;
