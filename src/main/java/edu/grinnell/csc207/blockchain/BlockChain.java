@@ -24,7 +24,7 @@ public class BlockChain {
     private Node first;
     private Node last;
     private int size;
-    private int Balance;
+    private int balance;
     private int initial;
 
     /**
@@ -38,7 +38,7 @@ public class BlockChain {
         this.first = new Node(firstBlock);
         this.last = first;
         this.size = 1;
-        this.Balance = initial;
+        this.balance = initial;
         this.initial = initial;
     }
 
@@ -78,7 +78,7 @@ public class BlockChain {
         last.next = newNode;
         last = newNode;
         size++;
-        this.Balance += b.getAmount();
+        this.balance += b.getAmount();
     }
 
     /**
@@ -94,7 +94,7 @@ public class BlockChain {
         while (current.next != last) {
             current = current.next;
         }
-        this.Balance -= last.block.getAmount();
+        this.balance -= last.block.getAmount();
         current.next = null;
         last = current;
         size--;
@@ -117,7 +117,6 @@ public class BlockChain {
      */
     public boolean isValidBlockChain() throws NoSuchAlgorithmException {
         Node current = first;
-
         while (current != null) {
             Block block = current.block;
             String blockData = "" + block.getNum() + block.getAmount() + block.getPrevHash() + block.getNonce();
@@ -139,8 +138,8 @@ public class BlockChain {
     /**
      * Prints the balances of Alice and Bob.
      */
-    public void printBalances() {
-        System.out.println("Balances: " + this.Balance);
+    public void printbalances() {
+        System.out.println("balances: " + this.balance);
     }
 
     /**
@@ -149,7 +148,7 @@ public class BlockChain {
      * @return The balance of the blockchain.
      */
     public int getBalance() {
-        return this.Balance;
+        return this.balance;
     }
 
     /**

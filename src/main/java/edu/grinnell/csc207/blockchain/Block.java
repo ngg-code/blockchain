@@ -95,11 +95,11 @@ public class Block {
      * @return a string representation of the block
      */
     public String toString() {
-        return "Block " + num +
-                "(amount: " + amount +
-                ", Nonce: " + nonce +
-                ", prevHash: " + prevHash +
-                ", hash: " + hash + ")";
+        return "Block " + num
+                + "(amount: " + amount
+                + ", Nonce: " + nonce
+                + ", prevHash: " + prevHash
+                + ", hash: " + hash + ")";
     }
 
     /**
