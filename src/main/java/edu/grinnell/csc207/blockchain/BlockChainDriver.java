@@ -1,7 +1,6 @@
 package edu.grinnell.csc207.blockchain;
+import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
-
-import org.w3c.dom.Node;
 
 
 /**
@@ -13,8 +12,10 @@ public class BlockChainDriver {
      * The main entry point for the program.
      * 
      * @param args the command-line arguments
+     * @throws NoSuchAlgorithmException 
+     * @throws NumberFormatException 
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NumberFormatException, NoSuchAlgorithmException {
         BlockChain chain = new BlockChain(Integer.parseInt(args[0]));
         System.out.println("Comand?");
         Scanner scanner = new Scanner(System.in);
@@ -32,11 +33,13 @@ public class BlockChainDriver {
             if (command.equals("mine")) {
                 System.out.println("Amount transferred?");
                 int amount = scanner.nextInt();
+                scanner.nextLine(); 
                 chain.mine(amount);
             }
             if (command.equals("append")) {
                 System.out.println("Amount transferred?");
                 int amount = scanner.nextInt();
+                scanner.nextLine();
                 chain.append(chain.mine(amount));
             }
             if (command.equals("remove")) {

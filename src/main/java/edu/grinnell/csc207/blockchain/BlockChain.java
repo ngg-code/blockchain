@@ -1,11 +1,16 @@
 package edu.grinnell.csc207.blockchain;
 
+import java.security.NoSuchAlgorithmException;
+
 /**
  * A linked list of hash-consistent blocks representing a ledger of
  * monetary transactions.
  */
 public class BlockChain {
 
+    /**
+     * A node in the linked list.
+     */
     private class Node {
         Block block;
         Node next;
@@ -22,7 +27,13 @@ public class BlockChain {
     private int Balance;
     private int initial;
 
-    public BlockChain(int initial) {
+    /**
+     * Constructor for the BlockChain class.
+     *
+     * @param initial The initial amount of the blockchain.
+     * @throws NoSuchAlgorithmException If the hashing algorithm is not found.
+     */
+    public BlockChain(int initial) throws NoSuchAlgorithmException {
         Block firstBlock = new Block(initial, 0, null);
         this.first = new Node(firstBlock);
         this.last = first;
@@ -31,21 +42,36 @@ public class BlockChain {
         this.initial = initial;
     }
 
-    public Block mine(int amount) {
+    /**
+     * Mines a new block with the given amount.
+     *
+     * @param amount The amount to be mined.
+     * @return The newly mined block.
+     * @throws NoSuchAlgorithmException If the hashing algorithm is not found.
+     */
+    public Block mine(int amount) throws NoSuchAlgorithmException {
         Block lastBlock = last.block;
-        lastBlock.mineBlock(amount);
-        return lastBlock;
+        Block newBlock = new Block(amount, lastBlock.getNum() + 1, lastBlock.getHash());
+        newBlock.mineBlock(amount);
+        return newBlock;
     }
 
     /**
-     * @return the number of elements in the list
+     * Returns the size of the blockchain.
+     * 
+     * @return The size of the blockchain.
      */
     public int getSize() {
         return this.size;
     }
 
+    /**
+     * Appends a new block to the end of the blockchain.
+     * 
+     * @param b The block to be appended.
+     */
     public void append(Block b) {
-        if (!b.getPrevHash().equals(last.block.getHash())) {
+        if (!(b.getPrevHash().equals(last.block.getHash()))) {
             throw new IllegalArgumentException("Invalid block");
         }
         Node newNode = new Node(b);
@@ -55,6 +81,11 @@ public class BlockChain {
         this.Balance += b.getAmount();
     }
 
+    /**
+     * Returns the amount of the transaction stored in this block.
+     * 
+     * @return the transaction amount contained in this block
+     */
     public boolean removeLast() {
         if (size == 1) {
             return false;
@@ -63,17 +94,27 @@ public class BlockChain {
         while (current.next != last) {
             current = current.next;
         }
+        this.Balance -= last.block.getAmount();
         current.next = null;
         last = current;
         size--;
-        this.Balance -= last.block.getAmount();
         return true;
     }
 
+    /**
+     * Returns the hash of the last block in the blockchain.
+     * 
+     * @return The hash of the last block.
+     */
     public Hash getHash() {
         return last.block.getHash();
     }
 
+    /**
+     * Checks if the blockchain is valid.
+     * 
+     * @return true if the blockchain is valid, false otherwise.
+     */
     public boolean isValidBlockChain() {
         Node current = first;
         while (current.next != null) {
@@ -85,18 +126,36 @@ public class BlockChain {
         return true;
     }
 
+    /**
+     * Prints the balances of Alice and Bob.
+     */
     public void printBalances() {
         System.out.println("Balances: " + this.Balance);
     }
 
-    public int getBalance(){
+    /**
+     * Returns the balance of the blockchain.
+     * 
+     * @return The balance of the blockchain.
+     */
+    public int getBalance() {
         return this.Balance;
     }
 
-    public int getInitial(){
+    /**
+     * Returns the initial amount of the blockchain.
+     * 
+     * @return The initial amount of the blockchain.
+     */
+    public int getInitial() {
         return this.initial;
     }
 
+    /**
+     * Returns a string representation of the blockchain.
+     * 
+     * @return A string representation of the blockchain.
+     */
     public String toString() {
         StringBuilder sb = new StringBuilder();
         Node current = first;
