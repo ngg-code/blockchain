@@ -119,7 +119,12 @@ public class BlockChain {
         Node current = first;
         while (current != null) {
             Block block = current.block;
-            String blockData = "" + block.getNum() + block.getAmount() + block.getPrevHash() + block.getNonce();
+            String blockData = ""
+                    + block.getNum()
+                    + block.getAmount()
+                    + block.getPrevHash()
+                    + block.getNonce()
+                    + "";
             Hash expectedHash = new Hash(Hash.calculateHash(blockData));
             if (!block.getHash().toString().equals(expectedHash.toString())) {
                 return false;
